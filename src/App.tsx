@@ -1,8 +1,18 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { DefaultAzureCredential } from '@azure/identity';
+import { SecretClient } from '@azure/keyvault-secrets';
 
-function App() {
+async function App() {
+  const credential = new DefaultAzureCredential();
+
+  const keyVaultName = "KV_NAME";
+  const url = "https://" + keyVaultName + ".vault.azure.net";
+
+  const client = new SecretClient(url, credential);
+  const secretName = "azure-auth-app-kv"
+  const result = await client.setSecret(secretName, "azure-auth-app-kv");
   return (
     <div className="App">
       <header className="App-header">
@@ -16,7 +26,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          {result.value}
         </a>
       </header>
     </div>
