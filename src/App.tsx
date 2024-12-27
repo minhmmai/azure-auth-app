@@ -12,7 +12,7 @@ const App = () => {
     if (!value) {
       setValue(getSecretValue() as any)
     }
-  }, [])
+  }, [value])
   return (
     <div className="App">
       <header className="App-header">
